@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>田心如 Tianne Jack - 探索 AI+教育</title>
+    <style>
+        /* ================= 全局设计系统 ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            /* 动态渐变背景，增加年轻活力感 */
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-attachment: fixed;
+            color: #2d3748;
+            line-height: 1.7;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        /* 主容器：毛玻璃卡片效果 */
+        .main-card {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= 头部区域 ================= */
+        .header {
+            padding: 40px 50px 30px 50px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-info h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+
+        .header-info .en-name {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .header-info .slogan {
+            margin-top: 15px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* 打字机特效光标 */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: white;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .header-photo img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ================= 主体内容布局 ================= */
+        .content-body {
+            display: flex;
+            padding: 40px 50px;
+            gap: 40px;
+        }
+
+        /* 左栏（侧边栏） */
+        .sidebar {
+            width: 30%;
+            flex-shrink: 0;
+        }
+
+        /* 右栏（主要内容） */
+        .main-content {
+            width: 70%;
+        }
+
+        /* ================= 模块标题 ================= */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: #2a5298;
+            font-size: 1.1rem;
+        }
+
+        /* ================= 侧边栏内容 ================= */
+        .contact-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .contact-list li {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            color: #4a5568;
+        }
+
+        .contact-list li i {
+            width: 20px;
+            color: #2a5298;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            background: #ebf4ff;
+            color: #2a5298;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid #bee3f8;
+        }
+
+        /* ================= 右栏卡片 ================= */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+            border: 1px solid #edf2f7;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .card-date {
+            font-size: 0.8rem;
+            color: #718096;
+            font-weight: 500;
+            background: #f7fafc;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .card-sub {
+            font-size: 0.9rem;
+            color: #2a5298;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        /* 列表项 */
+        .bullet-list {
+            list-style: none;
+        }
+
+        .bullet-list li {
+            font-size: 0.95rem;
+            color: #4a5568;
+            margin-bottom: 8px;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .bullet-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #3182ce;
+            font-weight: bold;
+        }
+
+        /* 高亮数字 */
+        .highlight {
+            color: #2b6cb0;
+            font-weight: 700;
+        }
+
+        /* ================= 响应式设计 ================= */
+        @media (max-width: 800px) {
+            .header {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .header-info h1 { font-size: 2rem; }
+            .header-photo img {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+            .content-body {
+                flex-direction: column;
+                padding: 20px;
+            }
+            .sidebar, .main-content {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="main-card">
+    
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="header-info">
+            <h1>田心如 <span class="en-name">Tianne Jack</span></h1>
+            <div class="slogan">
+                <span id="typing-text"></span><span class="cursor"></span>
+            </div>
+        </div>
+        <div class="header-photo">
+            <!-- ⚠️ 这里的链接换成你自己的照片链接，或者本地图片名字 photo.jpg -->
+            <img src="https://i.postimg.cc/529hrcwQ/IMG-20260908-132134.jpg" alt="田心如">
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="content-body">
+        
+        <!-- 左栏（侧边栏） -->
+        <div class="sidebar">
+            <h2 class="section-title"><i class="fas fa-address-card"></i> 联系方式</h2>
+            <ul class="contact-list">
+                <li><i class="fas fa-phone-alt"></i> 156-2380-2910</li>
+                <li><i class="fas fa-envelope"></i> tianne_2026@qq.com</li>
+                <li><i class="fab fa-qq"></i> 1654599510</li>
+                <li><i class="fas fa-university"></i> 湖北大学 · 大一</li>
+                <li><i class="fas fa-globe"></i> LinkedIn：待补</li>
+            </ul>
+
+            <h2 class="section-title"><i class="fas fa-tags"></i> 探索标签</h2>
+            <div class="tag-cloud">
+                <span class="tag">AI+教育</span>
+                <span class="tag">物理教学</span>
+                <span class="tag">个性化学习</span>
+                <span class="tag">跨学科</span>
+                <span class="tag">数据分析</span>
+                <span class="tag">课程设计</span>
+            </div>
+
+            <h2 class="section-title"><i class="fas fa-cogs"></i> 专业技能</h2>
+            <ul class="bullet-list" style="font-size:0.9rem;">
+                <li>高中数学 / 物理辅导</li>
+                <li>AI 训练师（初级）</li>
+                <li>教育科技工具融合</li>
+                <li>Office / 基础数据分析</li>
+            </ul>
+        </div>
+
+        <!-- 右栏（主要内容） -->
+        <div class="main-content">
+            
+            <!-- 教育背景 -->
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> 教育背景</h2>
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">湖北大学</span>
+                    <span class="card-date">2026.09 – 至今</span>
+                </div>
+                <div class="card-sub">本科（大一在读） · 物理学 / 教育学 / 人工智能</div>
+                <ul class="bullet-list">
+                    <li>核心方向：致力于探索 <span class="highlight">AI 赋能教育</span> 的前沿应用，尝试将物理学科与智能工具深度结合。</li>
+                    <li>核心课程：大学物理、高等数学、教育学原理、人工智能导论、教育心理学。</li>
+                    <li>GPA / 专业排名：【待补】</li>
+                </ul>
+            </div>
+
+            <!-- 教学与实践经历（老师/社团最看重这个） -->
+            <h2 class="section-title"><i class="fas fa-chalkboard-teacher"></i> 教学与实践经历</h2>
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">高中数学 / 物理辅导教师</span>
+                    <span class="card-date">2026.06 – 2026.08</span>
+                </div>
+                <div class="card-sub">独立设计教学方案 · 辅导3名高中生</div>
+                <ul class="bullet-list">
+                    <li>为3名高中生（高一至高三）提供数学、物理一对一辅导，针对薄弱知识点制定专项提升计划。</li>
+                    <li>通过系统梳理与错题复盘，学生平均提分 <span class="highlight">15-20分</span>，其中1名物理单科提升 <span class="highlight">25分+</span>。</li>
+                    <li>获得家长 <span class="highlight">100% 满意度</span>，并获2位家长主动推荐，直接转化1名新学员。</li>
+                    <li>独立开发 <span class="highlight">30+套</span> 专题讲义与测试卷，建立学生成长档案，教学效率提升约 <span class="highlight">30%</span>。</li>
+                </ul>
+            </div>
+
+            <!-- 项目经历（体现你的探索精神和学术潜力） -->
+            <h2 class="section-title"><i class="fas fa-flask"></i> 项目经历</h2>
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">AI 辅助物理教学工具探索</span>
+                    <span class="card-date">2026.08 – 至今</span>
+                </div>
+                <div class="card-sub">发起人 · 核心成员</div>
+                <ul class="bullet-list">
+                    <li>发起并主导 AI 辅助物理教学工具项目，探索大模型与智能题库在个性化讲解中的应用。</li>
+                    <li>基于高频错题分析，设计 AI 个性化练习路径，初步验证可缩短学生找题时间约 <span class="highlight">40%</span>。</li>
+                    <li>规划搭建 <span class="highlight">100条</span> 核心知识点 AI 讲解语料库，优化抽象物理概念的理解效率。</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">高中生学习行为与成绩关系研究</span>
+                    <span class="card-date">2026.07 – 2026.08</span>
+                </div>
+                <div class="card-sub">独立数据分析</div>
+                <ul class="bullet-list">
+                    <li>基于真实辅导数据，梳理高频错题与学习行为特征，构建学习习惯与成绩提升关系模型。</li>
+                    <li>根据模型调整教学策略，使学生在后续测试中正确率提升约 <span class="highlight">20%</span>。</li>
+                </ul>
+            </div>
+
+            <!-- 证书与推荐 -->
+            <h2 class="section-title"><i class="fas fa-award"></i> 证书与推荐</h2>
+            <div class="card">
+                <ul class="bullet-list">
+                    <li>AI 训练师初级证书（2026.08）</li>
+                    <li>家长实名推荐信（可提供原件/复印件）</li>
+                    <li>其他荣誉 / 奖项：【待补】</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript 打字机效果 -->
+<script>
+    const text = "“人所具有，我所具有” —— 探索 AI+教育 的无限可能";
+    let i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            document.getElementById("typing-text").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    }
+    window.onload = typeWriter;
+</script>
+
+</body>
+</html>
